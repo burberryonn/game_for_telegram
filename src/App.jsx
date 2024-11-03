@@ -8,7 +8,8 @@ function App() {
 
   return (
     <>
-      {`${tg.username}\n\n${tg.first_name}\n\n${tg.last_name}`}
+      {/* {`${tg.username}\n\n${tg.first_name}\n\n${tg.last_name}`} */}
+      {tg.user}
       <button onClick={() => setCount((count) => count + 1)}>
         count is {count}
       </button>
