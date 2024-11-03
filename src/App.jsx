@@ -5,7 +5,7 @@ import CryptoJS from "crypto-js"; // Импортируем библиотеку
 function App() {
   const [count, setCount] = useState(0);
   const [userData, setUserData] = useState(null);
-  const players = new Map()
+  const players = new Map();
 
   useEffect(() => {
     if (window.Telegram) {
@@ -29,10 +29,11 @@ function App() {
         const user = window.Telegram.WebApp.initDataUnsafe.user; // Получение данных пользователя из Telegram
         console.log("User data:", user); // Логируем данные пользователя
 
-        if (user && players.has(user.username)) {
-          setUserData(user);
+        if (user) {
+          setUserData(user.username);
+          players.has(user.username) ? null : players.get(user.username);
         } else {
-          players.get(user.username, 0)
+          players.get(user.username, 0);
           console.error("Данные о пользователе недоступны.");
         }
       } else {
@@ -64,7 +65,7 @@ function App() {
       ) : (
         <p>Не удалось получить данные пользователя</p>
       )}
-  {players}
+      {players}
       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
         count is {count}
       </button>
