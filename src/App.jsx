@@ -23,8 +23,12 @@ function App() {
       if (hexHmac === hash) {
         setUserData(window.Telegram.WebApp.WebAppUser); // Получение данных пользователя из Telegram
         console.log("111111111");
-        console.log(`${window.Telegram.WebApp}`);
+        console.log(`${window.Telegram.WebApp.WebAppUser}`);
+        console.log(`${window.Telegram.WebApp.WebAppInitData}`);
+        console.log(`${window.Telegram.WebApp.initDataUnsafe}`);
         console.log(`${window.Telegram.WebAppUser}`);
+        console.log(`${window.Telegram.WebAppInitData}`);
+        console.log(`${window.Telegram.initDataUnsafe}`);
       }
     } else {
       setUserData({
