@@ -27,7 +27,8 @@ function App() {
   return (
     <div className="App">
       <h1>Мини-приложение Telegram</h1>
-
+      {window.Telegram}
+      {window.Telegram.WebApp}
       {userData ? (
         <div>
           <p>
