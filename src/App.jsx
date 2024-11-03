@@ -10,7 +10,7 @@ function App() {
     if (window.Telegram) {
       setUserData(window.Telegram.WebApp.WebAppUser); // Получение данных пользователя из Telegram
       console.log("111111111");
-      console.log(`${window.Telegram.WebApp.WebAppUser}`);
+      console.log(`${window.Telegram.WebApp}`);
     } else {
       setUserData({
         id: "123456789",
