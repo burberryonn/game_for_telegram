@@ -5,7 +5,9 @@ import CryptoJS from "crypto-js"; // Импортируем библиотеку
 function App() {
   const [count, setCount] = useState(0);
   const [userData, setUserData] = useState(null);
-  const [players, setPlayers] = useState(new Map())
+  const [players, setPlayers] = useState(new Map());
+  window.Telegram.WebApp.ready();
+
   const user = window.Telegram.WebApp.initDataUnsafe.user; // Получение данных пользователя из Telegram
 
   useEffect(() => {
@@ -25,14 +27,12 @@ function App() {
 
         console.log("Telegram WebApp:", window.Telegram.WebApp);
 
-        window.Telegram.WebApp.ready();
-
         console.log("User data:", user); // Логируем данные пользователя
 
         if (user && players.has(user.username)) {
           setUserData(user);
         } else {
-          players.get(user.username, 0)
+          players.get(user.username, 0);
           console.error("Данные о пользователе недоступны.");
         }
       } else {
