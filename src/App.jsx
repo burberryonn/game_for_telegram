@@ -6,12 +6,20 @@ function App() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    // Инициализация WebApp
-    window.Telegram.WebApp.init();
-
-    // Проверка и установка данных пользователя из Telegram
-    const user = window.Telegram.WebApp.initDataUnsafe;
-    setUserData(user);
+    // Проверка наличия Telegram WebApp
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.init();
+      setUserData(window.Telegram.WebApp.initDataUnsafe); // Получение данных пользователя из Telegram
+    } else {
+      // Заглушка данных для локальной разработки
+      setUserData({
+        id: "123456789",
+        first_name: "Олег",
+        last_name: "Дьяконов",
+        username: "burberryonn",
+      });
+      console.log("Telegram WebApp SDK недоступен. Используются тестовые данные.");
+    }
   }, []);
 
   return (
