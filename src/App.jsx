@@ -6,47 +6,35 @@ function App() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    if (
-      window.Telegram &&
-      window.Telegram.WebApp &&
-      typeof window.Telegram.WebApp.init === "function"
-    ) {
-      window.Telegram.WebApp.init();
-    } else {
-      console.error("Telegram WebApp API не доступен");
-    }
-    if (window.Telegram && window.Telegram.WebApp) {
+    // Проверка наличия Telegram WebApp
+
       window.Telegram.WebApp.init();
       setUserData(window.Telegram.WebApp.initDataUnsafe); // Получение данных пользователя из Telegram
-    } else {
+
       // Заглушка данных для локальной разработки
-      setUserData({
-        id: "123456789",
-        first_name: "Олег",
-        last_name: "Дьяконов",
-        username: "burberryonn",
-      });
-      console.log(
-        "Telegram WebApp SDK недоступен. Используются тестовые данные."
-      );
+      // setUserData({
+      //   id: "123456789",
+      //   first_name: "Олег",
+      //   last_name: "Дьяконов",
+      //   username: "burberryonn",
+      // });
+      console.log("Telegram WebApp SDK недоступен. Используются тестовые данные.");
     }
-  }, []);
+   ,[]);
 
   return (
     <div className="App">
       <h1>Мини-приложение Telegram</h1>
-
+      
       {userData ? (
         <div>
-          <p>
-            Привет, {userData.first_name} {userData.last_name}!
-          </p>
+          <p>Привет, {userData.first_name} {userData.last_name}!</p>
           <p>Ваш username: @{userData.username}</p>
         </div>
       ) : (
         <p>Не удалось получить данные пользователя</p>
       )}
-
+      
       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
         count is {count}
       </button>
