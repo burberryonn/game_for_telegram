@@ -21,6 +21,13 @@ function App() {
       // Сравниваем вычисленный HMAC с ожидаемым значением
       if (hexHmac === hash) {
         console.log("HMAC проверен успешно. Получаем данные пользователя.");
+
+        // Логируем весь объект WebApp для отладки
+        console.log("Telegram WebApp:", window.Telegram.WebApp);
+
+        // Используем метод ready для инициализации
+        window.Telegram.WebApp.ready();
+
         const user = window.Telegram.WebApp.WebAppUser; // Получение данных пользователя из Telegram
         console.log("User data:", user); // Логируем данные пользователя
 
