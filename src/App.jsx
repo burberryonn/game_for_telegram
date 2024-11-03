@@ -31,9 +31,7 @@ function App() {
 
         if (user) {
           setUserData(user);
-          players.has(userData.user.username)
-            ? null
-            : players.get(userData.user.username, 0);
+          players.has(user.username) ? null : players.get(user.username, 0);
         } else {
           console.error("Данные о пользователе недоступны.");
         }
@@ -61,7 +59,7 @@ function App() {
           <p>
             Привет, {userData?.first_name} {userData?.last_name}!
           </p>
-          <p>Ваш username: @{userData.user.username}</p>
+          <p>Ваш username: @{userData.username}</p>
         </div>
       ) : (
         <p>Не удалось получить данные пользователя</p>
