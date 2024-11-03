@@ -5,29 +5,28 @@ import CryptoJS from "crypto-js"; // Импортируем библиотеку
 function App() {
   const [count, setCount] = useState(0);
   const [userData, setUserData] = useState(null);
-  const [players, setPlayers] = useState(new Map());
-  window.Telegram.WebApp.ready();
-
-  const user = window.Telegram.WebApp.initDataUnsafe.user; // Получение данных пользователя из Telegram
-
+  const players = new Map()
+  
   useEffect(() => {
     if (window.Telegram) {
       const data_check_string = window.Telegram.WebApp.initData;
-
+      
       const secret_key = "7389532998:AAGby3TxdbBs1saGQ9kLJd_bwaFzTyOv0Us"; // Ваш секретный ключ
       const hash = CryptoJS.HmacSHA256(data_check_string, secret_key).toString(
         CryptoJS.enc.Hex
       );
-
+      
       const computedHmac = CryptoJS.HmacSHA256(data_check_string, secret_key);
       const hexHmac = computedHmac.toString(CryptoJS.enc.Hex); // Преобразуем в строку в шестнадцатеричном формате
-
+      
       if (hexHmac === hash) {
-        console.log("HMAC проверен успешно. Получаем данные пользователя.");
+        window.Telegram.WebApp.ready();
+        const user = window.Telegram.WebApp.initDataUnsafe.user; // Получение данных пользователя из Telegram
+        // console.log("HMAC проверен успешно. Получаем данные пользователя.");
+        
+        // console.log("Telegram WebApp:", window.Telegram.WebApp);
 
-        console.log("Telegram WebApp:", window.Telegram.WebApp);
-
-        console.log("User data:", user); // Логируем данные пользователя
+        // console.log("User data:", user); // Логируем данные пользователя
 
         if (user && players.has(user.username)) {
           setUserData(user);
