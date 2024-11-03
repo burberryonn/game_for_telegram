@@ -63,7 +63,7 @@ function App() {
       ) : (
         <p>Не удалось получить данные пользователя</p>
       )}
-
+      {players}
       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
         {/* count is {players[user.username]} */}
         {count}
