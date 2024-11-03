@@ -9,6 +9,7 @@ function App() {
     // Проверка наличия Telegram WebApp
     if (window.Telegram) {
       setUserData(window.Telegram.WebApp.WebAppUser); // Получение данных пользователя из Telegram
+      console.log("1222222");
     } else {
       setUserData({
         id: "123456789",
@@ -25,7 +26,6 @@ function App() {
   return (
     <div className="App">
       <h1>Мини-приложение Telegram</h1>
-      {window.Telegram}
       {userData ? (
         <div>
           <p>
