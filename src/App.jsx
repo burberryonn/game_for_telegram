@@ -5,35 +5,34 @@ import CryptoJS from "crypto-js"; // Импортируем библиотеку
 function App() {
   const [count, setCount] = useState(0);
   const [userData, setUserData] = useState(null);
+  const [players, setPlayers] = useState(new Map())
+  const user = window.Telegram.WebApp.initDataUnsafe.user; // Получение данных пользователя из Telegram
 
   useEffect(() => {
-    // Проверка наличия Telegram WebApp
     if (window.Telegram) {
       const data_check_string = window.Telegram.WebApp.initData;
 
       const secret_key = "7389532998:AAGby3TxdbBs1saGQ9kLJd_bwaFzTyOv0Us"; // Ваш секретный ключ
-      const hash = CryptoJS.HmacSHA256(data_check_string, secret_key).toString(CryptoJS.enc.Hex);
+      const hash = CryptoJS.HmacSHA256(data_check_string, secret_key).toString(
+        CryptoJS.enc.Hex
+      );
 
-      // Вычисляем HMAC
       const computedHmac = CryptoJS.HmacSHA256(data_check_string, secret_key);
       const hexHmac = computedHmac.toString(CryptoJS.enc.Hex); // Преобразуем в строку в шестнадцатеричном формате
 
-      // Сравниваем вычисленный HMAC с ожидаемым значением
       if (hexHmac === hash) {
         console.log("HMAC проверен успешно. Получаем данные пользователя.");
 
-        // Логируем весь объект WebApp для отладки
         console.log("Telegram WebApp:", window.Telegram.WebApp);
 
-        // Используем метод ready для инициализации
         window.Telegram.WebApp.ready();
 
-        const user = window.Telegram.WebApp.initDataUnsafe.user; // Получение данных пользователя из Telegram
         console.log("User data:", user); // Логируем данные пользователя
 
-        if (user) {
+        if (user && players.has(user.username)) {
           setUserData(user);
         } else {
+          players.get(user.username, 0)
           console.error("Данные о пользователе недоступны.");
         }
       } else {
@@ -46,18 +45,19 @@ function App() {
         last_name: "ХУЙ ТЕБЕ",
         username: "burberryonn",
       });
-      console.log("Telegram WebApp SDK недоступен. Используются тестовые данные.");
+      console.log(
+        "Telegram WebApp SDK недоступен. Используются тестовые данные."
+      );
     }
   }, []);
 
   return (
     <div className="App">
       <h1>Мини-приложение Telegram</h1>
-      {window.Telegram.WebApp.initData}
       {userData ? (
         <div>
           <p>
-            Привет, {userData.first_name} {userData.last_name}!
+            Привет, {userData?.first_name} {userData?.last_name}!
           </p>
           <p>Ваш username: @{userData.username}</p>
         </div>
@@ -66,7 +66,7 @@ function App() {
       )}
 
       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
-        count is {count}
+        count is {players[user.username]}
       </button>
     </div>
   );
