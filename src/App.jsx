@@ -12,8 +12,9 @@ function App() {
       const data_check_string = window.Telegram.WebApp.initData;
 
       const secret_key = "7389532998:AAGby3TxdbBs1saGQ9kLJd_bwaFzTyOv0Us"; // Ваш секретный ключ
-      const hash = "someExpectedHash"; // Укажите ожидаемый хэш здесь
-
+      const hash = CryptoJS.HmacSHA256(data_check_string, secret_key).toString(
+        CryptoJS.enc.Hex
+      );
       // Вычисляем HMAC
       const computedHmac = CryptoJS.HmacSHA256(data_check_string, secret_key);
       const hexHmac = computedHmac.toString(CryptoJS.enc.Hex); // Преобразуем в строку в шестнадцатеричном формате
