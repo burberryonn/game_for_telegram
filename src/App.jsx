@@ -30,10 +30,11 @@ function App() {
         console.log("User data:", user); // Логируем данные пользователя
 
         if (user) {
-          setUserData(user.username);
-          players.has(user.username) ? null : players.get(user.username);
+          setUserData(user);
+          players.has(userData.username)
+            ? null
+            : players.get(userData.username, 0);
         } else {
-          players.get(user.username, 0);
           console.error("Данные о пользователе недоступны.");
         }
       } else {
@@ -65,7 +66,7 @@ function App() {
       ) : (
         <p>Не удалось получить данные пользователя</p>
       )}
-      {players}
+      {`ИГРОКИ: ${players}`}
       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
         count is {count}
       </button>
