@@ -6,7 +6,6 @@ function App() {
 
   return (
     <>
-      {window.Telegram.WebApp.initData}
       <button onClick={() => setCount((count) => count + 1)}>
         count is {count}
       </button>
