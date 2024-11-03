@@ -32,6 +32,7 @@ function App() {
         if (user) {
           setUserData(user);
           players.has(user.username) ? null : players.get(user.username, 0);
+          console.log(players)
         } else {
           console.error("Данные о пользователе недоступны.");
         }
@@ -50,7 +51,7 @@ function App() {
       );
     }
   }, []);
-
+  
   return (
     <div className="App">
       <h1>Мини-приложение Telegram</h1>
