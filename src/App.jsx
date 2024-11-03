@@ -65,7 +65,8 @@ function App() {
       )}
 
       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
-        count is {players[user.username]}
+        {/* count is {players[user.username]} */}
+        {count}
       </button>
     </div>
   );
