@@ -28,7 +28,7 @@ function App() {
         // Используем метод ready для инициализации
         window.Telegram.WebApp.ready();
 
-        const user = window.Telegram.WebApp.WebAppUser; // Получение данных пользователя из Telegram
+        const user = window.Telegram.WebApp.initDataUnsafe.user; // Получение данных пользователя из Telegram
         console.log("User data:", user); // Логируем данные пользователя
 
         if (user) {
