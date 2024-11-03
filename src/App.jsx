@@ -1,28 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  window.Telegram.WebApp.init();
   const [count, setCount] = useState(0);
-  const [players, setPlayers] = useState([]);
+  const [userData, setUserData] = useState(null);
 
-  const user = window.Telegram.WebApp.initDataUnsafe;
-  // const telegramUserData = {
-  //   id: "389592101",
-  //   first_name: "Олег",
-  //   last_name: "Дьяконов",
-  //   username: "burberryonn",
-  //   hash: "7389532998:AAGby3TxdbBs1saGQ9kLJd_bwaFzTyOv0Us",
-  // };
+  useEffect(() => {
+    // Инициализация WebApp
+    window.Telegram.WebApp.init();
+
+    // Проверка и установка данных пользователя из Telegram
+    const user = window.Telegram.WebApp.initDataUnsafe;
+    setUserData(user);
+  }, []);
 
   return (
-    <>
-      {/* {`${tg.username}\n\n${tg.first_name}\n\n${tg.last_name}`} */}
-      {user}
-      <button onClick={() => setCount((count) => count + 1)}>
+    <div className="App">
+      <h1>Мини-приложение Telegram</h1>
+      
+      {userData ? (
+        <div>
+          <p>Привет, {userData.first_name} {userData.last_name}!</p>
+          <p>Ваш username: @{userData.username}</p>
+        </div>
+      ) : (
+        <p>Не удалось получить данные пользователя</p>
+      )}
+      
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
         count is {count}
       </button>
-    </>
+    </div>
   );
 }
 
