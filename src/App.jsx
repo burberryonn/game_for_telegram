@@ -12,23 +12,25 @@ function App() {
       const data_check_string = window.Telegram.WebApp.initData;
 
       const secret_key = "7389532998:AAGby3TxdbBs1saGQ9kLJd_bwaFzTyOv0Us"; // Ваш секретный ключ
-      const hash = CryptoJS.HmacSHA256(data_check_string, secret_key).toString(
-        CryptoJS.enc.Hex
-      );
+      const hash = CryptoJS.HmacSHA256(data_check_string, secret_key).toString(CryptoJS.enc.Hex);
+
       // Вычисляем HMAC
       const computedHmac = CryptoJS.HmacSHA256(data_check_string, secret_key);
       const hexHmac = computedHmac.toString(CryptoJS.enc.Hex); // Преобразуем в строку в шестнадцатеричном формате
 
       // Сравниваем вычисленный HMAC с ожидаемым значением
       if (hexHmac === hash) {
-        setUserData(window.Telegram.WebApp.WebAppUser); // Получение данных пользователя из Telegram
-        console.log("111111111");
-        console.log(`${window.Telegram.WebApp.WebAppUser}`);
-        console.log(`${window.Telegram.WebApp.WebAppInitData}`);
-        console.log(`${window.Telegram.WebApp.initDataUnsafe}`);
-        console.log(`${window.Telegram.WebAppUser}`);
-        console.log(`${window.Telegram.WebAppInitData}`);
-        console.log(`${window.Telegram.initDataUnsafe}`);
+        console.log("HMAC проверен успешно. Получаем данные пользователя.");
+        const user = window.Telegram.WebApp.WebAppUser; // Получение данных пользователя из Telegram
+        console.log("User data:", user); // Логируем данные пользователя
+
+        if (user) {
+          setUserData(user);
+        } else {
+          console.error("Данные о пользователе недоступны.");
+        }
+      } else {
+        console.error("Неверный HMAC.");
       }
     } else {
       setUserData({
@@ -37,9 +39,7 @@ function App() {
         last_name: "ХУЙ ТЕБЕ",
         username: "burberryonn",
       });
-      console.log(
-        "Telegram WebApp SDK недоступен. Используются тестовые данные."
-      );
+      console.log("Telegram WebApp SDK недоступен. Используются тестовые данные.");
     }
   }, []);
 
